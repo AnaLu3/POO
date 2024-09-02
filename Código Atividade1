@@ -1,0 +1,18 @@
+// Funcionário Cadastrador
+class FuncionarioCadastrador {
+    private String nome;
+    private int matricula;
+    private String cnpjPrestadora;
+
+    // Construtor, getters e setters
+}
+
+// Cidadão
+class Cidadao {
+    private String cpf;
+    private String nome;
+ 	    private int idade;
+    private boolean vacinado;
+
+    	// Construtor, getters e setters
+}
