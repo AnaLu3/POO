@@ -1,0 +1,268 @@
+public class CadastroValidator {
+
+    public static boolean verificarIdade(int idade) throws IllegalArgumentException {
+        if (idade > 0 && idade < 150) {
+            return true;
+        } else {
+            throw new IllegalArgumentException("Idade inválida: " + idade);
+        }
+    }
+
+    public static boolean verificarCpf(String cpf) throws IllegalArgumentException {
+        // Simples verificação de CPF (apenas para exemplo, não é uma validação completa)
+        if (cpf != null && cpf.matches("\\d{11}")) {
+            return true;
+        } else {
+            throw new IllegalArgumentException("CPF inválido: " + cpf);
+        }
+    }
+
+    public static boolean verificarEmail(String email) throws IllegalArgumentException {
+        // Simples verificação de email (apenas para exemplo, não é uma validação completa)
+        if (email != null && email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            return true;
+        } else {
+            throw new IllegalArgumentException("Email inválido: " + email);
+        }
+    }
+
+    public static boolean verificarTelefone(String telefone) throws IllegalArgumentException {
+        // Simples verificação de telefone (apenas para exemplo, não é uma validação completa)
+        if (telefone != null && telefone.matches("\\d{10,11}")) {
+            return true;
+        } else {
+            throw new IllegalArgumentException("Telefone inválido: " + telefone);
+        }
+    }
+}
+
+public class Pessoa {
+    private String nome;
+    private String cpf;
+    private String telefone;
+    private String email;
+
+    public Pessoa() {}
+
+    public Pessoa(String nome, String cpf, String telefone, String email) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.telefone = telefone;
+        this.email = email;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void agendarVacinacao(Date data) {
+        // Implementação padrão (pode ser vazia ou lançar uma exceção)
+    }
+
+    public void vacinar() {
+        // Implementação padrão (pode ser vazia ou lançar uma exceção)
+    }
+}
+
+public class FuncionarioCadastrador extends Pessoa {
+    private static int contadorIdentificador = 0;
+    private int identificador;
+    private int matricula;
+    private String cnpjPrestadora;
+
+    public FuncionarioCadastrador() {
+        this.identificador = ++contadorIdentificador;
+    }
+
+    public FuncionarioCadastrador(String nome, String cpf, String telefone, String email, String cnpjPrestadora) {
+        super(nome, cpf, telefone, email);
+        this.identificador = ++contadorIdentificador;
+        this.cnpjPrestadora = cnpjPrestadora;
+    }
+
+    public int getIdentificador() {
+        return identificador;
+    }
+
+    public int getMatricula() {
+        return matricula;
+    }
+
+    private void setMatricula(int matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getCnpjPrestadora() {
+        return cnpjPrestadora;
+    }
+
+    public void setCnpjPrestadora(String cnpjPrestadora) {
+        this.cnpjPrestadora = cnpjPrestadora;
+    }
+
+    public void alterarMatricula(int novaMatricula, String senhaAdmin) {
+        if ("senhaSegura".equals(senhaAdmin)) {
+            setMatricula(novaMatricula);
+        } else {
+            System.out.println("Senha incorreta. Não é possível alterar a matrícula.");
+        }
+    }
+
+    @Override
+    public void agendarVacinacao(Date data) {
+        System.out.println("Funcionário " + getNome() + " agendou vacinação para " + data);
+    }
+
+    @Override
+    public void vacinar() {
+        System.out.println("Funcionário " + getNome() + " realizou a vacinação.");
+    }
+}
+
+public class Cidadao extends Pessoa {
+    private int idade;
+    private boolean vacinado;
+    private Date agendamento;
+
+    public Cidadao() {}
+
+    public Cidadao(String nome, String cpf, int idade, boolean vacinado, String telefone, String email) {
+        super(nome, cpf, telefone, email);
+        this.idade = idade;
+        this.vacinado = vacinado;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public boolean isVacinado() {
+        return vacinado;
+    }
+
+    public void setVacinado(boolean vacinado) {
+        this.vacinado = vacinado;
+    }
+
+    public Date getAgendamento() {
+        return agendamento;
+    }
+
+    public void setAgendamento(Date agendamento) {
+        this.agendamento = agendamento;
+    }
+
+    @Override
+    public void agendarVacinacao(Date data) {
+        this.agendamento = data;
+        System.out.println("Cidadão " + getNome() + " tem vacinação agendada para " + data);
+    }
+
+    @Override
+    public void vacinar() {
+        this.vacinado = true;
+        System.out.println("Cidadão " + getNome() + " foi vacinado.");
+    }
+
+    public void alterarCpf(String novoCpf, String senhaAdmin) {
+        if ("senhaSegura".equals(senhaAdmin)) {
+            setCpf(novoCpf);
+        } else {
+            System.out.println("Senha incorreta. Não é possível alterar o CPF.");
+        }
+    }
+}
+
+public class CadastroService {
+    private List<FuncionarioCadastrador> funcionarios;
+    private List<Cidadao> cidadaos;
+
+    public CadastroService() {
+        this.funcionarios = new ArrayList<>();
+        this.cidadaos = new ArrayList<>();
+    }
+
+    public void adicionarFuncionario(FuncionarioCadastrador funcionario) {
+        funcionarios.add(funcionario);
+    }
+
+    public void adicionarCidadao(Cidadao cidadao) {
+        cidadaos.add(cidadao);
+    }
+
+    public FuncionarioCadastrador buscarFuncionarioPorId(int id) {
+        for (FuncionarioCadastrador funcionario : funcionarios) {
+            if (funcionario.getIdentificador() == id) {
+                return funcionario;
+            }
+        }
+        return null;
+    }
+
+    public Cidadao buscarCidadaoPorCpf(String cpf) {
+        for (Cidadao cidadao : cidadaos) {
+            if (cidadao.getCpf().equals(cpf)) {
+                return cidadao;
+            }
+        }
+        return null;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        CadastroService cadastroService = new CadastroService();
+
+        FuncionarioCadastrador cadastrador = new FuncionarioCadastrador("João", "123456789", "999999999", "joao@exemplo.com", "123456789");
+        Cidadao cidadao = new Cidadao("Maria", "987654321", 30, false, "888888888", "maria@exemplo.com");
+
+        cadastroService.adicionarFuncionario(cadastrador);
+        cadastroService.adicionarCidadao(cidadao);
+
+        FuncionarioCadastrador funcionarioEncontrado = cadastroService.buscarFuncionarioPorId(1);
+        Cidadao cidadaoEncontrado = cadastroService.buscarCidadaoPorCpf("987654321");
+
+        if (funcionarioEncontrado != null) {
+            funcionarioEncontrado.agendarVacinacao(new Date());
+        }
+
+        if (cidadaoEncontrado != null) {
+            cidadaoEncontrado.vacinar();
+        }
+
+        System.out.println("Funcionário: " + cadastrador.getNome() + ", Identificador: " + cadastrador.getIdentificador());
+        System.out.println("Cidadão: " + cidadao.getNome() + ", CPF: " + cidadao.getCpf() + ", Agendamento: " + cidadao.getAgendamento());
+    }
+}
