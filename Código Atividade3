@@ -1,0 +1,175 @@
+import java.util.Date;
+
+public class FuncionarioCadastrador {
+    private static int contadorIdentificador = 0;
+    private int identificador;
+    private String nome;
+    private int matricula;
+    private String cnpjPrestadora;
+    private String telefone;
+    private String email;
+
+    public FuncionarioCadastrador() {
+        this.identificador = ++contadorIdentificador;
+    }
+
+    public FuncionarioCadastrador(String nome, String cnpjPrestadora, String telefone, String email) {
+        this();
+        this.nome = nome;
+        this.cnpjPrestadora = cnpjPrestadora;
+        this.telefone = telefone;
+        this.email = email;
+    }
+
+    public int getIdentificador() {
+        return identificador;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getMatricula() {
+        return matricula;
+    }
+
+    private void setMatricula(int matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getCnpjPrestadora() {
+        return cnpjPrestadora;
+    }
+
+    public void setCnpjPrestadora(String cnpjPrestadora) {
+        this.cnpjPrestadora = cnpjPrestadora;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void alterarMatricula(int novaMatricula, String senhaAdmin) {
+        if ("senhaSegura".equals(senhaAdmin)) {
+            setMatricula(novaMatricula);
+        } else {
+            System.out.println("Senha incorreta. Não é possível alterar a matrícula.");
+        }
+    }
+}
+
+public class Cidadao {
+    private String cpf;
+    private String nome;
+    private int idade;
+    private boolean vacinado;
+    private String telefone;
+    private String email;
+    private Date agendamento;
+
+    public Cidadao() {}
+
+    public Cidadao(String cpf, String nome, int idade, boolean vacinado, String telefone, String email) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.idade = idade;
+        this.vacinado = vacinado;
+        this.telefone = telefone;
+        this.email = email;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    private void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public boolean isVacinado() {
+        return vacinado;
+    }
+
+    public void setVacinado(boolean vacinado) {
+        this.vacinado = vacinado;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getAgendamento() {
+        return agendamento;
+    }
+
+    public void setAgendamento(Date agendamento) {
+        this.agendamento = agendamento;
+    }
+
+    public void alterarCpf(String novoCpf, String senhaAdmin) {
+        if ("senhaSegura".equals(senhaAdmin)) {
+            setCpf(novoCpf);
+        } else {
+            System.out.println("Senha incorreta. Não é possível alterar o CPF.");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        FuncionarioCadastrador cadastrador = new FuncionarioCadastrador("João", "123456789", "999999999", "joao@exemplo.com");
+
+        Cidadao cidadao = new Cidadao("987654321", "Maria", 30, true, "888888888", "maria@exemplo.com");
+
+        cadastrador.alterarMatricula(12345, "senhaSegura");
+        cidadao.alterarCpf("123456789", "senhaSegura");
+        cidadao.setAgendamento(new Date());
+
+        System.out.println("Funcionário: " + cadastrador.getNome() + ", Identificador: " + cadastrador.getIdentificador());
+        System.out.println("Cidadão: " + cidadao.getNome() + ", CPF: " + cidadao.getCpf() + ", Agendamento: " + cidadao.getAgendamento());
+    }
+}
