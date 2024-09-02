@@ -1,0 +1,113 @@
+public class FuncionarioCadastrador {
+    private static int contadorIdentificador = 0;
+    private int identificador;
+    private String nome;
+    private int matricula;
+    private String cnpjPrestadora;
+
+    public FuncionarioCadastrador() {
+        this.identificador = ++contadorIdentificador;
+    }
+
+    public int getIdentificador() {
+        return identificador;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getMatricula() {
+        return matricula;
+    }
+
+    private void setMatricula(int matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getCnpjPrestadora() {
+        return cnpjPrestadora;
+    }
+
+    public void setCnpjPrestadora(String cnpjPrestadora) {
+        this.cnpjPrestadora = cnpjPrestadora;
+    }
+
+    public void alterarMatricula(int novaMatricula, String senhaAdmin) {
+        if ("senhaSegura".equals(senhaAdmin)) {
+            setMatricula(novaMatricula);
+        } else {
+            System.out.println("Senha incorreta. Não é possível alterar a matrícula.");
+        }
+    }
+}
+
+public class Cidadao {
+    private String cpf;
+    private String nome;
+    private int idade;
+    private boolean vacinado;
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    private void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public boolean isVacinado() {
+        return vacinado;
+    }
+
+    public void setVacinado(boolean vacinado) {
+        this.vacinado = vacinado;
+    }
+
+    public void alterarCpf(String novoCpf, String senhaAdmin) {
+        if ("senhaSegura".equals(senhaAdmin)) {
+            setCpf(novoCpf);
+        } else {
+            System.out.println("Senha incorreta. Não é possível alterar o CPF.");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        FuncionarioCadastrador cadastrador = new FuncionarioCadastrador();
+        cadastrador.setNome("João");
+        cadastrador.setCnpjPrestadora("123456789");
+
+        Cidadao cidadao = new Cidadao();
+        cidadao.setNome("Maria");
+        cidadao.setIdade(30);
+        cidadao.setVacinado(true);
+
+        cadastrador.alterarMatricula(12345, "senhaSegura");
+        cidadao.alterarCpf("987654321", "senhaSegura");
+
+        System.out.println("Funcionário: " + cadastrador.getNome() + ", Identificador: " + cadastrador.getIdentificador());
+        System.out.println("Cidadão: " + cidadao.getNome() + ", CPF: " + cidadao.getCpf());
+    }
+}
